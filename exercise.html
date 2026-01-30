@@ -8,42 +8,35 @@
 </head>
 <body>
 
-  <main class="page exercise-page">
+  <main class="page exercise">
 
-    <section class="exercise-intro">
-      <h2>Take a slow breath</h2>
-      <p>
-        Nothing else matters for this moment.
-        Just breathe with the circle.
-      </p>
-    </section>
+    <h2>Take a slow breath</h2>
+    <p class="exercise-text">
+      Follow the circle. Nothing else to do right now.
+    </p>
 
-    <section class="breathing-section">
-      <div class="breathing-card">
+    <div class="breathing-card">
 
-        <!-- BREATHING VISUAL -->
-      <div class="breath-wrapper">
-  <div class="wave"></div>
-  <div class="circle" id="circle">
-    <span id="breathText">Ready?</span>
-  </div>
-</div>
+      <div class="breath-wrapper inhale" id="breathWrapper">
+        <div class="glow"></div>
 
-
-        <!-- BUTTON -->
-        <button class="primary-btn outline" id="toggleBtn">
-          Start
-        </button>
-
-        <p class="hint">
-          In as it expands. Out as it softens.
-        </p>
+        <div class="circle">
+          <span id="breathText">Ready?</span>
+        </div>
       </div>
-    </section>
 
-    <section class="closing-note">
-      <a href="index.html" class="secondary-link">← Back to home</a>
-    </section>
+      <button id="toggleBtn" class="primary-btn outline">
+        Start
+      </button>
+
+      <p class="hint">
+        In to gather. Out to release.
+      </p>
+    </div>
+
+    <a href="index.html" class="back-link">
+      ← Back to home
+    </a>
 
   </main>
 

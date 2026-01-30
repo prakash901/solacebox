@@ -1,34 +1,46 @@
-const wrapper = document.querySelector(".breath-wrapper");
+const wrapper = document.getElementById("breathWrapper");
 const text = document.getElementById("breathText");
 const btn = document.getElementById("toggleBtn");
 
-let breathing = false;
-let inhale = true;
-let interval;
+let running = false;
+let phase = "inhale";
+let timer;
 
 btn.addEventListener("click", () => {
-  breathing = !breathing;
+  running = !running;
 
-  if (breathing) {
+  if (running) {
     btn.textContent = "Stop";
-    inhale = true;
-    text.textContent = "Breathe in";
-    wrapper.classList.add("breathing-active");
-
-    interval = setInterval(() => {
-      text.style.opacity = 0.5;
-
-      setTimeout(() => {
-        text.textContent = inhale ? "Breathe out" : "Breathe in";
-        text.style.opacity = 1;
-        inhale = !inhale;
-      }, 400);
-    }, 5000);
-
+    startBreathing();
   } else {
-    btn.textContent = "Start";
-    text.textContent = "Ready?";
-    wrapper.classList.remove("breathing-active");
-    clearInterval(interval);
+    stopBreathing();
   }
 });
+
+function startBreathing() {
+  phase = "inhale";
+  wrapper.classList.remove("exhale");
+  wrapper.classList.add("inhale");
+  text.textContent = "Breathe in";
+
+  timer = setInterval(() => {
+    if (phase === "inhale") {
+      phase = "exhale";
+      wrapper.classList.remove("inhale");
+      wrapper.classList.add("exhale");
+      text.textContent = "Breathe out";
+    } else {
+      phase = "inhale";
+      wrapper.classList.remove("exhale");
+      wrapper.classList.add("inhale");
+      text.textContent = "Breathe in";
+    }
+  }, 4000);
+}
+
+function stopBreathing() {
+  clearInterval(timer);
+  wrapper.classList.remove("inhale", "exhale");
+  text.textContent = "Ready?";
+  btn.textContent = "Start";
+}

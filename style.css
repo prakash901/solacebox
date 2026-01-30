@@ -1,18 +1,19 @@
-/* RESET + BASE */
+/* RESET */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* BASE */
 body {
   background: linear-gradient(180deg, #FFF4EC 0%, #FFF8F3 100%);
   color: #5C4438;
   line-height: 1.6;
 }
 
-/* SHARED PAGE LAYOUT */
+/* PAGE */
 .page {
   max-width: 420px;
   margin: 0 auto;
@@ -20,187 +21,146 @@ body {
   text-align: center;
 }
 
-/* ---------------- HOME PAGE ---------------- */
-
-.hero h1 {
+/* HOME */
+.home h1 {
   font-size: 28px;
   margin-bottom: 16px;
 }
 
-.hero-text {
+.home-text {
   font-size: 15px;
   color: #6D6D6D;
   margin-bottom: 32px;
 }
 
 .home-note {
-  margin-top: 56px;
+  margin-top: 48px;
   font-size: 14px;
   color: #6D6D6D;
 }
 
-/* ---------------- BUTTONS ---------------- */
-
+/* BUTTON */
 .primary-btn {
-  display: inline-block;
-  padding: 12px 30px;
+  padding: 12px 28px;
   border-radius: 999px;
   background: #F8B996;
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
+  color: white;
   border: none;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.primary-btn:hover {
-  transform: translateY(-1px);
-  opacity: 0.9;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .primary-btn.outline {
   background: transparent;
   color: #5C4438;
   border: 1.5px solid #F8B996;
+  margin-top: 16px;
 }
 
-/* ---------------- EXERCISE PAGE ---------------- */
-
-.exercise-intro h2 {
+/* EXERCISE */
+.exercise h2 {
   font-size: 22px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
-.exercise-intro p {
+.exercise-text {
   font-size: 14px;
   color: #6D6D6D;
+  margin-bottom: 40px;
 }
 
-.breathing-section {
-  margin: 48px 0;
-}
-
+/* CARD */
 .breathing-card {
   background: #FFF8F3;
   border-radius: 32px;
-  padding: 56px 24px;
+  padding: 48px 24px;
   box-shadow: 0 20px 40px rgba(248, 185, 150, 0.25);
 }
 
-/* ---------------- BREATHING VISUAL ---------------- */
-
-/* Wrapper */
+/* BREATHING VISUAL */
 .breath-wrapper {
   position: relative;
   width: 200px;
   height: 200px;
-  margin: 0 auto 36px;
+  margin: 0 auto 32px;
 }
 
-/* Soft blue glow (NOT a visible circle) */
-.wave {
+/* GLOW (ONLY ON EXHALE) */
+.glow {
   position: absolute;
   inset: -30px;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(160, 200, 255, 0.35) 0%,
-    rgba(160, 200, 255, 0.18) 40%,
-    rgba(160, 200, 255, 0.08) 60%,
-    rgba(160, 200, 255, 0.0) 72%
+    rgba(150, 200, 255, 0.35) 0%,
+    rgba(150, 200, 255, 0.15) 40%,
+    rgba(150, 200, 255, 0.05) 65%,
+    rgba(150, 200, 255, 0) 75%
   );
   opacity: 0;
-  transform: scale(0.8);
+  transform: scale(1);
+  filter: blur(12px);
+  transition: all 4s ease;
   pointer-events: none;
-  filter: blur(10px);
 }
 
-/* Main breathing circle */
+/* MAIN CIRCLE */
 .circle {
-  position: relative;
   width: 150px;
   height: 150px;
   margin: auto;
-  background: radial-gradient(circle at top, #FBCDB3, #F8B996);
   border-radius: 50%;
+  background: radial-gradient(circle at top, #FBCDB3, #F8B996);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
-  will-change: transform, box-shadow;
+  transition: transform 4s ease;
 }
 
+/* TEXT */
 .circle span {
   font-size: 14px;
-  color: #5C4438;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
 }
 
-/* ---------------- ACTIVE BREATHING ANIMATION ---------------- */
+/* STATES */
 
-.breathing-active .circle {
-  animation: coreBreath 10s ease-in-out infinite;
+/* INHALE = SMALL */
+.breath-wrapper.inhale .circle {
+  transform: scale(0.85);
 }
 
-.breathing-active .wave {
-  animation: wavePulse 10s ease-in-out infinite;
+.breath-wrapper.inhale .glow {
+  opacity: 0;
 }
 
-/* Core breathing motion */
-@keyframes coreBreath {
-  0% {
-    transform: scale(0.9);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(0.9);
-  }
+/* EXHALE = EXPAND OUTWARD */
+.breath-wrapper.exhale .circle {
+  transform: scale(1.25);
 }
 
-/* Glow pulse (outward air feel) */
-@keyframes wavePulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.5);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.8);
-  }
+.breath-wrapper.exhale .glow {
+  opacity: 0.6;
+  transform: scale(1.6);
 }
 
-/* ---------------- TEXT BELOW ---------------- */
-
+/* EXTRA */
 .hint {
-  margin-top: 20px;
+  margin-top: 16px;
   font-size: 13px;
   color: #6D6D6D;
 }
 
-.closing-note {
-  margin-top: 48px;
-  font-size: 14px;
-  color: #6D6D6D;
-}
-
-.secondary-link {
+.back-link {
   display: inline-block;
-  margin-top: 16px;
+  margin-top: 32px;
   font-size: 13px;
   color: #5C4438;
   text-decoration: none;
 }
 
-/* ---------------- DESKTOP RESPONSIVE ---------------- */
-
+/* DESKTOP */
 @media (min-width: 768px) {
   .page {
     max-width: 520px;
